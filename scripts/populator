@@ -1,0 +1,22 @@
+# calculates required libraries for a binary
+function requirements {
+	ldd "$1" | awk '{if (NF == 2) {if ($1 ~ /^\//) {print $1}} else {print $3}}'
+}
+
+# attaches a binary with all its library requirements
+# should be called from the root of an image
+function attach_binary {
+    for REQ in $(requirements $1)
+    do
+    	canonical_name=$(readlink -f $REQ)
+    	basename=$(basename $REQ)
+    	cp "$REQ" "lib64/${basename}"
+    done
+
+    if [ -n "$2" ]
+    then
+    	cp "$1" "./$2"
+    else
+        cp --parents "$1" .
+    fi
+}

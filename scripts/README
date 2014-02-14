@@ -1,0 +1,5 @@
+These scripts are called from the top-level Makefile
+to set up the environment. They are not meant to be
+launched alone.
+
+ :(

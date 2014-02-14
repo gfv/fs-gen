@@ -1,0 +1,22 @@
+This is a small tool that can assist in linux early user-mode software
+debug process. It sets up a virtual environment for QEMU that can launch
+almost instantly.
+
+What do you need to do:
+1. Copy some linux kernel to a file called "kernel" next to this file.
+   (the one on your computer should do)
+2. Imperatively describe FS structure in "populate-image.sh".
+3. # make
+4. $ ./run.sh
+
+If you want to change the filesystem:
+1. Stop all VMs using the image.
+2. # ./mount.sh
+3. Do whatever you need to do.
+4. # ./umount.sh
+
+Files:
+Makefile - a top-level makefile. Requires root permissions to tinker with
+           loop devices and mounts.
+mount.sh - mounts the image to the "image" directory
+umount.sh - umounts it
